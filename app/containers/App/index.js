@@ -13,15 +13,28 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
+import LoginPage from 'containers/LoginPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
+const userIsAuthenticated = connectedRouterRedirect({
+   // The url to redirect user to if they fail
+  redirectPath: '/login',
+   // If selector is true, wrapper will not redirect
+   // For example let's check that state contains user data
+  authenticatedSelector: () => null,
+  // A nice display name for this check
+  wrapperDisplayName: 'UserIsAuthenticated',
+});
 
 export default function App() {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/" component={userIsAuthenticated(HomePage)} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

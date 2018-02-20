@@ -41,7 +41,7 @@
     "pretest": "npm run test:clean && npm run lint",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
-    "test:watch": "cross-env NODE_ENV=test jest --watchAll",
+    "test:watch": "cross-env NODE_ENV=test jest --watchAll --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "lint-staged": {
@@ -190,6 +190,8 @@
       "!app/*/RbGenerated*/*.{js,jsx}",
       "!app/app.js",
       "!app/global-styles.js",
+      "!app/helpers/intl-enzyme-test-helper.js",
+      "!app/**/**/styles.js",
       "!app/*/*/Loadable.{js,jsx}"
     ],
     "coverageThreshold": {
@@ -227,7 +229,7 @@
     "intl": "1.2.5",
     "invariant": "2.2.2",
     "ip": "1.1.5",
-    "lodash": "4.17.4",
+    "lodash": "^4.17.5",
     "minimist": "1.2.0",
     "prop-types": "15.5.10",
     "react": "15.6.1",
@@ -239,6 +241,7 @@
     "react-router-dom": "4.1.1",
     "react-router-redux": "5.0.0-alpha.6",
     "redux": "3.6.0",
+    "redux-auth-wrapper": "^2.0.2",
     "redux-immutable": "4.0.0",
     "redux-saga": "0.15.3",
     "reselect": "3.0.1",
