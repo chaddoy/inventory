@@ -10,3 +10,4 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+export const SET_CURRENT_USER = 'app/App/SET_CURRENT_USER';

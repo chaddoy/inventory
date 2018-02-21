@@ -1,18 +1,54 @@
-
 import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
+  LOGIN,
+  LOGIN_USER,
+  LOGIN_ERROR,
 } from '../constants';
 
-describe('LoginPage actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
+import {
+  login,
+  loginUser,
+  loginError,
+} from '../actions';
+
+describe('LoginPage Actions', () => {
+  describe('login', () => {
+    it('should return the correct type and credentials', () => {
+      const creds = {
+        username: 'jbrennan',
+        password: 'secret',
       };
-      expect(defaultAction()).toEqual(expected);
+      const expectedResult = {
+        type: LOGIN,
+        ...creds,
+      };
+      expect(login(creds)).toEqual(expectedResult);
+    });
+  });
+
+  describe('loginUser', () => {
+    it('should return the correct type and user info', () => {
+      const user = {
+        username: 'jbrennan',
+        password: 'secret',
+        firstName: 'James',
+        lastName: 'Brennan',
+      };
+      const expectedResult = {
+        type: LOGIN_USER,
+        user,
+      };
+      expect(loginUser(user)).toEqual(expectedResult);
+    });
+  });
+
+  describe('loginError', () => {
+    it('should return the correct type and user info', () => {
+      const errorMsg = 'This is an error message.';
+      const expectedResult = {
+        type: LOGIN_ERROR,
+        errorMsg,
+      };
+      expect(loginError(errorMsg)).toEqual(expectedResult);
     });
   });
 });

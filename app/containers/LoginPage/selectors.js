@@ -9,6 +9,16 @@ const selectLoginPageDomain = (state) => state.get('loginPage');
  * Other specific selectors
  */
 
+const makeSelectLoggingIn = () => createSelector(
+  selectLoginPageDomain,
+  (substate) => substate.get('loggingIn')
+);
+
+const makeSelectLoginErrorMsg = () => createSelector(
+  selectLoginPageDomain,
+  (substate) => substate.get('errorMsg')
+);
+
 
 /**
  * Default selector used by LoginPage
@@ -19,7 +29,9 @@ const makeSelectLoginPage = () => createSelector(
   (substate) => substate.toJS()
 );
 
-export default makeSelectLoginPage;
 export {
   selectLoginPageDomain,
+  makeSelectLoggingIn,
+  makeSelectLoginErrorMsg,
+  makeSelectLoginPage,
 };

@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -15,7 +16,9 @@ import { Form, Icon, Input, Button } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectLoginPage from './selectors';
+import { makeSelectLoggedIn } from 'containers/App/selectors';
+import { makeSelectLoggingIn, makeSelectLoginErrorMsg } from './selectors';
+import { login } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -28,13 +31,17 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.props.onLogin(values);
       }
     });
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
+
+    if (this.props.loggedIn) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div>
@@ -47,26 +54,46 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
         <Form onSubmit={this.handleSubmit} className="loginpage-form">
           <FormItem>
             {getFieldDecorator('username', {
-              rules: [{ required: true, message: 'Please input your username!' }],
+              rules: [{
+                required: true,
+                message: 'Please input your username!',
+              }],
               initialValue: '',
             })(
-              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+              <Input
+                prefix={(
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                )}
+                placeholder="Username"
+              />
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
+              rules: [{
+                required: true,
+                message: 'Please input your Password!',
+              }],
               initialValue: '',
             })(
-              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+              <Input
+                prefix={(
+                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                )}
+                type="password"
+                placeholder="Password"
+              />
             )}
           </FormItem>
           <FormItem>
-            <a className="loginpage-form-forgot" href="">Forgot password</a>
-            <Button type="primary" htmlType="submit" className="loginpage-form-button">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="loginpage-form-button"
+            >
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            <a className="loginpage-form-forgot" href="">Forgot password</a>
           </FormItem>
         </Form>
       </div>
@@ -76,15 +103,19 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
 
 LoginPage.propTypes = {
   form: PropTypes.object.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loginpage: makeSelectLoginPage(),
+  loggingIn: makeSelectLoggingIn(),
+  errorMsg: makeSelectLoginErrorMsg(),
+  loggedIn: makeSelectLoggedIn(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onLogin: (creds) => dispatch(login(creds)),
   };
 }
 

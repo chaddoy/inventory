@@ -6,15 +6,33 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  LOGIN,
+  LOGIN_USER,
+  LOGIN_ERROR,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  loggingIn: false,
+  errorMsg: '',
+});
 
 function loginPageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case LOGIN:
+      return state
+        .set('loggingIn', true)
+        .set('errorMsg', '');
+
+    case LOGIN_USER:
+      return state
+        .set('loggingIn', false)
+        .set('errorMsg', '');
+
+    case LOGIN_ERROR:
+      return state
+        .set('loggingIn', false)
+        .set('errorMsg', action.errorMsg);
+
     default:
       return state;
   }
