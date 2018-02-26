@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { Form } from 'antd';
-import { mountWithIntl } from 'helpers/intl-enzyme-test-helper';
+import { mountWithIntl, shallowWithIntl } from 'helpers/intl-enzyme-test-helper';
 
 import { login } from '../actions';
 import { LoginPage, mapDispatchToProps } from '../index';
@@ -44,10 +43,10 @@ describe('<LoginPage />', () => {
     expect(onLoginSpy).toHaveBeenCalledTimes(1);
   });
 
-  it.skip('should redirect to homepage if logged in already', () => {
+  it('should redirect to homepage if logged in already', () => {
     const WrappedForm = Form.create()(LoginPage);
     const loggedIn = true;
-    const wrapper = shallow(
+    const wrapper = shallowWithIntl(
       <WrappedForm loggedIn={loggedIn} />
     );
     expect(wrapper.find('form')).toHaveLength(0);

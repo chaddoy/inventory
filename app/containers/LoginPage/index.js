@@ -46,8 +46,8 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
     return (
       <div>
         <Helmet>
-          <title>LoginPage</title>
-          <meta name="description" content="Description of LoginPage" />
+          <title>Login</title>
+          <meta name="description" content="Description of Login" />
         </Helmet>
         <FormattedMessage {...messages.header} />
 
