@@ -27,17 +27,10 @@ describe('LoginPage Actions', () => {
 
   describe('loginUser', () => {
     it('should return the correct type and user info', () => {
-      const user = {
-        username: 'jbrennan',
-        password: 'secret',
-        firstName: 'James',
-        lastName: 'Brennan',
-      };
       const expectedResult = {
         type: LOGIN_USER,
-        user,
       };
-      expect(loginUser(user)).toEqual(expectedResult);
+      expect(loginUser()).toEqual(expectedResult);
     });
   });
 

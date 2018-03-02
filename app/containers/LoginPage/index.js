@@ -16,7 +16,7 @@ import { Form, Icon, Input, Button } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectLoggedIn } from 'containers/App/selectors';
+import { makeSelectAuthenticated } from 'containers/App/selectors';
 import { makeSelectLoggingIn, makeSelectLoginErrorMsg } from './selectors';
 import { login } from './actions';
 import reducer from './reducer';
@@ -39,7 +39,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    if (this.props.loggedIn) {
+    if (this.props.authenticated) {
       return <Redirect to="/" />;
     }
 
@@ -104,13 +104,13 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
 LoginPage.propTypes = {
   form: PropTypes.object.isRequired,
   onLogin: PropTypes.func.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   loggingIn: makeSelectLoggingIn(),
   errorMsg: makeSelectLoginErrorMsg(),
-  loggedIn: makeSelectLoggedIn(),
+  authenticated: makeSelectAuthenticated(),
 });
 
 export function mapDispatchToProps(dispatch) {

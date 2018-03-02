@@ -9,12 +9,12 @@ const makeSelectLocation = () => createSelector(
 
 const selectApp = (state) => state.get('app');
 
-const makeSelectLoggedIn = () => createSelector(
+const makeSelectAuthenticated = () => createSelector(
   selectApp,
-  (routeState) => routeState.get('loggedIn'),
+  (routeState) => routeState.get('authenticated'),
 );
 
 export {
   makeSelectLocation,
-  makeSelectLoggedIn,
+  makeSelectAuthenticated,
 };

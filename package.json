@@ -184,6 +184,7 @@
     ]
   },
   "jest": {
+    "testURL": "http://localhost",
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",

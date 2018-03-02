@@ -1,26 +1,31 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Form } from 'antd';
-import { mountWithIntl, shallowWithIntl } from 'helpers/intl-enzyme-test-helper';
+import { mountWithIntl } from 'helpers/intl-enzyme-test-helper';
 
 import { login } from '../actions';
 import { LoginPage, mapDispatchToProps } from '../index';
 
 describe('<LoginPage />', () => {
-  it('should render LoginPage', () => {
-    const WrappedForm = Form.create()(LoginPage);
-    const wrapper = mountWithIntl(
-      <WrappedForm />
-    );
+  let WrappedForm;
+  let wrapper;
+  const props = {
+    onLogin: jest.fn(),
+    authenticated: false,
+  };
 
+  beforeEach(() => {
+    WrappedForm = Form.create()(LoginPage);
+    wrapper = mountWithIntl(
+      <WrappedForm {...props} />
+    );
+  });
+
+  it('should render LoginPage', () => {
     expect(wrapper.find('form')).toHaveLength(1);
   });
 
   it('should display empty fields error message', () => {
-    const WrappedForm = Form.create()(LoginPage);
-    const wrapper = mountWithIntl(
-      <WrappedForm />
-    );
-
     wrapper.find('.loginpage-form').first().simulate('submit');
     expect(wrapper.find('.ant-form-explain')
       .first().text()).toEqual('Please input your username!');
@@ -29,47 +34,42 @@ describe('<LoginPage />', () => {
   });
 
   it('should call `onLogin` if credentials are valid', () => {
-    const onLoginSpy = jest.fn();
-    const WrappedForm = Form.create()(LoginPage);
-    const wrapper = mountWithIntl(
-      <WrappedForm onLogin={onLoginSpy} />
-    );
-
     wrapper.node.setFieldsInitialValue({
       username: 'jbrennan',
       password: 'secret',
     });
     wrapper.find('.loginpage-form').first().simulate('submit');
-    expect(onLoginSpy).toHaveBeenCalledTimes(1);
+    expect(props.onLogin).toHaveBeenCalledTimes(1);
   });
 
   it('should redirect to homepage if logged in already', () => {
-    const WrappedForm = Form.create()(LoginPage);
-    const loggedIn = true;
-    const wrapper = shallowWithIntl(
-      <WrappedForm loggedIn={loggedIn} />
+    const newProps = Object.assign(props, { authenticated: true });
+    wrapper = mountWithIntl(
+      <Router>
+        <WrappedForm {...newProps} />
+      </Router>
     );
-    expect(wrapper.find('form')).toHaveLength(0);
+    expect(wrapper.find('.loginpage-form').first()).toHaveLength(0);
   });
+});
 
-  describe('mapDispatchToProps', () => {
-    describe('onLogin', () => {
-      it('should be injected', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        expect(result.onLogin).toBeDefined();
-      });
+describe('mapDispatchToProps', () => {
+  describe('onLogin', () => {
+    it('should be injected', () => {
+      const dispatch = jest.fn();
+      const result = mapDispatchToProps(dispatch);
+      expect(result.onLogin).toBeDefined();
+    });
 
-      it('should dispatch login when called', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        const creds = {
-          username: 'jbrennan',
-          password: 'secret',
-        };
-        result.onLogin(creds);
-        expect(dispatch).toHaveBeenCalledWith(login(creds));
-      });
+    it('should dispatch login when called', () => {
+      const dispatch = jest.fn();
+      const result = mapDispatchToProps(dispatch);
+      const creds = {
+        username: 'jbrennan',
+        password: 'secret',
+      };
+      result.onLogin(creds);
+      expect(dispatch).toHaveBeenCalledWith(login(creds));
     });
   });
 });

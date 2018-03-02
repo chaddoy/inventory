@@ -9,7 +9,7 @@ describe('appReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
-      loggedIn: false,
+      authenticated: false,
       user: null,
     });
   });
@@ -25,7 +25,7 @@ describe('appReducer', () => {
       lastName: 'Brennan',
     };
     const expectedResult = state
-      .set('loggedIn', true)
+      .set('authenticated', true)
       .set('user', user);
     expect(appReducer(state, setCurrentUser(user))).toEqual(expectedResult);
   });

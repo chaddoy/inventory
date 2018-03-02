@@ -18,10 +18,9 @@ export function login({ username, password }) {
   };
 }
 
-export function loginUser(user) {
+export function loginUser() {
   return {
     type: LOGIN_USER,
-    user,
   };
 }
 

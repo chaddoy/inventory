@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import { makeSelectLocation, makeSelectLoggedIn } from 'containers/App/selectors';
+import { makeSelectLocation, makeSelectAuthenticated } from 'containers/App/selectors';
 
 describe('makeSelectLocation', () => {
   it('should select the location', () => {
@@ -14,14 +14,14 @@ describe('makeSelectLocation', () => {
   });
 });
 
-describe('makeSelectLoggedIn', () => {
-  it('should select the app/loggedIn', () => {
+describe('makeSelectAuthenticated', () => {
+  it('should select the app/authenticated', () => {
     const app = fromJS({
-      loggedIn: false,
+      authenticated: false,
     });
     const mockedState = fromJS({
       app,
     });
-    expect(makeSelectLoggedIn()(mockedState)).toEqual(app.get('loggedIn'));
+    expect(makeSelectAuthenticated()(mockedState)).toEqual(app.get('authenticated'));
   });
 });
