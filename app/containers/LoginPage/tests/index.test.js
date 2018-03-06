@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Form } from 'antd';
 import { mountWithIntl } from 'helpers/intl-enzyme-test-helper';
 
-import { login } from '../actions';
+import { checkUserAuth } from 'containers/App/actions';
 import { LoginPage, mapDispatchToProps } from '../index';
 
 describe('<LoginPage />', () => {
@@ -61,7 +61,7 @@ describe('mapDispatchToProps', () => {
       expect(result.onLogin).toBeDefined();
     });
 
-    it('should dispatch login when called', () => {
+    it('should dispatch checkUserAuth when called', () => {
       const dispatch = jest.fn();
       const result = mapDispatchToProps(dispatch);
       const creds = {
@@ -69,7 +69,7 @@ describe('mapDispatchToProps', () => {
         password: 'secret',
       };
       result.onLogin(creds);
-      expect(dispatch).toHaveBeenCalledWith(login(creds));
+      expect(dispatch).toHaveBeenCalledWith(checkUserAuth(creds));
     });
   });
 });

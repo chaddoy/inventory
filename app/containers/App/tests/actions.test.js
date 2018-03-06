@@ -1,23 +1,25 @@
 import {
-  SET_CURRENT_USER,
+  SET_USER_AUTH,
 } from '../constants';
 
 import {
-  setCurrentUser,
+  setUserAuth,
 } from '../actions';
 
 describe('App Actions', () => {
-  describe('setCurrentUser', () => {
+  describe('setUserAuth', () => {
     it('should return the correct type and user info', () => {
       const user = {
-        firstName: 'James',
-        lastName: 'Brennan',
+        username: 'admin',
+        password: 'secret',
+        firstName: 'Abraham',
+        lastName: 'Maslow',
       };
       const expectedResult = {
-        type: SET_CURRENT_USER,
+        type: SET_USER_AUTH,
         user,
       };
-      expect(setCurrentUser(user)).toEqual(expectedResult);
+      expect(setUserAuth(user)).toEqual(expectedResult);
     });
   });
 });

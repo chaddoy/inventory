@@ -11,6 +11,7 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { DatePicker } from 'antd';
 
 import messages from './messages';
 
@@ -19,6 +20,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <h1>
         <FormattedMessage {...messages.header} />
+        <DatePicker />
       </h1>
     );
   }

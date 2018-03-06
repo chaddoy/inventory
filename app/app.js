@@ -14,10 +14,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
+import CryptoJS from 'crypto-js';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from 'containers/App';
+import { setUserAuth } from 'containers/App/actions';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
@@ -51,6 +53,18 @@ const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
+if (localStorage.getItem('capd-user')) {
+  // temporary for users having localStorage remaining of greasyPrivileges
+  try {
+    const localUser = localStorage.getItem('capd-user');
+    const jsonString = CryptoJS.AES.decrypt(localUser, 'capd-user');
+    const User = JSON.parse(jsonString.toString(CryptoJS.enc.Utf8));
+    store.dispatch(setUserAuth(User));
+  } catch (err) {
+    // TODO: add an action to expire the token
+  }
+}
+
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
@@ -61,7 +75,7 @@ const render = (messages) => {
       </LanguageProvider>
     </Provider>,
     MOUNT_NODE
-  );
+);
 };
 
 if (module.hot) {

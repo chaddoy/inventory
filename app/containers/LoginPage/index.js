@@ -15,11 +15,11 @@ import { compose } from 'redux';
 import { Form, Icon, Input, Button } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { makeSelectAuthenticated } from 'containers/App/selectors';
-import { makeSelectLoggingIn, makeSelectLoginErrorMsg } from './selectors';
-import { login } from './actions';
-import reducer from './reducer';
+import {
+  makeSelectAuthenticated,
+  makeSelectAuthenticating,
+} from 'containers/App/selectors';
+import { checkUserAuth } from 'containers/App/actions';
 import saga from './saga';
 import messages from './messages';
 import './styles';
@@ -90,6 +90,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
               type="primary"
               htmlType="submit"
               className="loginpage-form-button"
+              loading={this.props.authenticating}
             >
               Log in
             </Button>
@@ -104,28 +105,25 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
 LoginPage.propTypes = {
   form: PropTypes.object.isRequired,
   onLogin: PropTypes.func.isRequired,
+  authenticating: PropTypes.bool.isRequired,
   authenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loggingIn: makeSelectLoggingIn(),
-  errorMsg: makeSelectLoginErrorMsg(),
+  authenticating: makeSelectAuthenticating(),
   authenticated: makeSelectAuthenticated(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onLogin: (creds) => dispatch(login(creds)),
+    onLogin: (creds) => dispatch(checkUserAuth(creds)),
   };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'loginPage', reducer });
 const withSaga = injectSaga({ key: 'loginPage', saga });
 
 export default compose(
-  withReducer,
   withSaga,
   withConnect,
 )(Form.create()(LoginPage));

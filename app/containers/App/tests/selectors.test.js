@@ -1,6 +1,11 @@
 import { fromJS } from 'immutable';
 
-import { makeSelectLocation, makeSelectAuthenticated } from 'containers/App/selectors';
+import {
+  makeSelectLocation,
+  makeSelectAuthenticating,
+  makeSelectAuthenticated,
+  makeSelectMessageToUser,
+} from 'containers/App/selectors';
 
 describe('makeSelectLocation', () => {
   it('should select the location', () => {
@@ -14,6 +19,18 @@ describe('makeSelectLocation', () => {
   });
 });
 
+describe('makeSelectAuthenticating', () => {
+  it('should select the app/authenticating', () => {
+    const app = fromJS({
+      authenticating: false,
+    });
+    const mockedState = fromJS({
+      app,
+    });
+    expect(makeSelectAuthenticating()(mockedState)).toEqual(app.get('authenticating'));
+  });
+});
+
 describe('makeSelectAuthenticated', () => {
   it('should select the app/authenticated', () => {
     const app = fromJS({
@@ -23,5 +40,17 @@ describe('makeSelectAuthenticated', () => {
       app,
     });
     expect(makeSelectAuthenticated()(mockedState)).toEqual(app.get('authenticated'));
+  });
+});
+
+describe('makeSelectMessageToUser', () => {
+  it('should select the app/messageToUser', () => {
+    const app = fromJS({
+      messageToUser: false,
+    });
+    const mockedState = fromJS({
+      app,
+    });
+    expect(makeSelectMessageToUser()(mockedState)).toEqual(app.get('messageToUser'));
   });
 });

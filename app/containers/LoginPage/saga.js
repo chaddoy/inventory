@@ -1,10 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { LOGIN, USERS, LOGIN_ERROR_MSG } from 'containers/LoginPage/constants';
-import { setCurrentUser } from 'containers/App/actions';
-import { loginUser, loginError } from 'containers/LoginPage/actions';
+import { USERS, LOGIN_ERROR_MSG } from 'containers/LoginPage/constants';
+import { CHECK_USER_AUTH } from 'containers/App/constants';
+import { setUserAuth, errUserAuth } from 'containers/App/actions';
 import _ from 'lodash';
 
-export function* authenticateUser({ username, password }) {
+export function* checkAuth({ username, password }) {
   try {
     const userIndex = _.findIndex(USERS, {
       username,
@@ -12,16 +12,15 @@ export function* authenticateUser({ username, password }) {
     });
 
     if (userIndex !== -1) {
-      yield put(loginUser());
-      yield put(setCurrentUser(USERS[userIndex]));
+      yield put(setUserAuth(USERS[userIndex]));
     } else {
       throw new Error();
     }
   } catch (err) {
-    yield put(loginError(LOGIN_ERROR_MSG));
+    yield put(errUserAuth(LOGIN_ERROR_MSG));
   }
 }
 
 export default function* watchLogin() {
-  yield takeEvery(LOGIN, authenticateUser);
+  yield takeEvery(CHECK_USER_AUTH, checkAuth);
 }

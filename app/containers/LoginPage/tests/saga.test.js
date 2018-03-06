@@ -4,11 +4,11 @@
 
 import { put, takeEvery } from 'redux-saga/effects';
 
-import { LOGIN, LOGIN_ERROR_MSG } from 'containers/LoginPage/constants';
-import { setCurrentUser } from 'containers/App/actions';
-import { loginUser, loginError } from 'containers/LoginPage/actions';
+import { LOGIN_ERROR_MSG } from 'containers/LoginPage/constants';
+import { CHECK_USER_AUTH } from 'containers/App/constants';
+import { setUserAuth, errUserAuth } from 'containers/App/actions';
 
-import watchLogin, { authenticateUser } from '../saga';
+import watchLogin, { checkAuth } from '../saga';
 
 const creds = {
   username: 'admin',
@@ -23,42 +23,36 @@ const response = [{
 }];
 
 /* eslint-disable redux-saga/yield-effects */
-describe('authenticateUser Saga', () => {
-  let authenticateUserGenerator;
+describe('checkAuth Saga', () => {
+  let checkAuthGenerator;
 
   // We have to test twice, once for a successful load and once for an unsuccessful one
   // so we do all the stuff that happens beforehand automatically in the beforeEach
   beforeEach(() => {
-    authenticateUserGenerator = authenticateUser(creds);
+    checkAuthGenerator = checkAuth(creds);
   });
 
-  it('should dispatch the loginUser action if it requests the data successfully', () => {
-    const putDescriptor = authenticateUserGenerator.next().value;
-    expect(putDescriptor).toEqual(put(loginUser()));
+  it('should dispatch the setUserAuth action if it requests the data successfully', () => {
+    const putDescriptor = checkAuthGenerator.next(creds).value;
+    expect(putDescriptor).toEqual(put(setUserAuth(response[0])));
   });
 
-  it('should dispatch the setCurrentUser action if it requests the data successfully', () => {
-    authenticateUserGenerator.next();
-    const putDescriptor = authenticateUserGenerator.next().value;
-    expect(putDescriptor).toEqual(put(setCurrentUser(response[0])));
-  });
-
-  it('should call the loginError action if the response errors', () => {
+  it('should call the errUserAuth action if the response errors', () => {
     const errorCreds = {
       username: 'wrongusername',
       password: 'wrongpassword',
     };
-    authenticateUserGenerator = authenticateUser(errorCreds);
-    const putDescriptor = authenticateUserGenerator.next().value;
-    expect(putDescriptor).toEqual(put(loginError(LOGIN_ERROR_MSG)));
+    checkAuthGenerator = checkAuth(errorCreds);
+    const putDescriptor = checkAuthGenerator.next().value;
+    expect(putDescriptor).toEqual(put(errUserAuth(LOGIN_ERROR_MSG)));
   });
 });
 
 describe('watchLoginSaga Saga', () => {
   const watchLoginSaga = watchLogin();
 
-  it('should start task to watch for LOGIN action', () => {
+  it('should start task to watch for CHECK_USER_AUTH action', () => {
     const takeEveryDescriptor = watchLoginSaga.next().value;
-    expect(takeEveryDescriptor).toEqual(takeEvery(LOGIN, authenticateUser));
+    expect(takeEveryDescriptor).toEqual(takeEvery(CHECK_USER_AUTH, checkAuth));
   });
 });
