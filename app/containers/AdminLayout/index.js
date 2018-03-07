@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Layout, Menu, Icon, Avatar, Row, Col, Dropdown, Badge } from 'antd';
@@ -28,7 +29,9 @@ export class AdminLayout extends React.Component { // eslint-disable-line react/
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">Sign out</a>
+          <Link to="/logout">
+            Sign out
+          </Link>
         </Menu.Item>
       </Menu>
     );

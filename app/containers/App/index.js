@@ -21,6 +21,7 @@ import AdminLayout from 'containers/AdminLayout/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import LogoutPage from 'containers/LogoutPage/Loadable';
 
 const userIsAuthenticated = connectedRouterRedirect({
    // The url to redirect user to if they fail
@@ -49,6 +50,7 @@ export default function App() {
       <Switch>
         <AppRoute exact path="/login" layout={PublicLayout} component={LoginPage} />
         <AppRoute exact path="/" layout={AdminLayout} component={userIsAuthenticated(HomePage)} />
+        <Route exact path="/logout" component={LogoutPage} />
         <AppRoute layout={PublicLayout} component={NotFoundPage} />
       </Switch>
     </div>

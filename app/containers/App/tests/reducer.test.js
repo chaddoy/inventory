@@ -5,6 +5,7 @@ import {
   checkUserAuth,
   setUserAuth,
   errUserAuth,
+  unsetUserAuth,
 } from '../actions';
 
 describe('appReducer', () => {
@@ -76,5 +77,14 @@ describe('appReducer', () => {
       .set('authenticating', false)
       .set('authenticated', false);
     expect(appReducer(state, errUserAuth(errorMsg))).toEqual(expectedResult);
+  });
+
+  it('should handle the unsetUserAuth action correctly', () => {
+    const expectedResult = state
+      .set('user', null)
+      .set('messageToUser', '')
+      .set('authenticating', false)
+      .set('authenticated', false);
+    expect(appReducer(state, unsetUserAuth())).toEqual(expectedResult);
   });
 });

@@ -8,6 +8,7 @@ import {
   CHECK_USER_AUTH,
   SET_USER_AUTH,
   ERROR_USER_AUTH,
+  UNSET_USER_AUTH,
 } from './constants';
 
 export function checkUserAuth({ username, password }) {
@@ -29,5 +30,11 @@ export function errUserAuth(errorMsg) {
   return {
     type: ERROR_USER_AUTH,
     errorMsg,
+  };
+}
+
+export function unsetUserAuth() {
+  return {
+    type: UNSET_USER_AUTH,
   };
 }

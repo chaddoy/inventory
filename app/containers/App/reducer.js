@@ -10,6 +10,7 @@ import {
   CHECK_USER_AUTH,
   SET_USER_AUTH,
   ERROR_USER_AUTH,
+  UNSET_USER_AUTH,
 } from './constants';
 
 const initialState = fromJS({
@@ -41,6 +42,15 @@ function appReducer(state = initialState, action) {
         .set('messageToUser', action.errorMsg)
         .set('authenticating', false)
         .set('authenticated', false);
+
+    case UNSET_USER_AUTH: {
+      localStorage.removeItem('capd-user');
+      return state
+        .set('user', null)
+        .set('authenticating', false)
+        .set('authenticated', false)
+        .set('messageToUser', '');
+    }
 
     default:
       return state;

@@ -13,3 +13,4 @@ export const DEFAULT_LOCALE = 'en';
 export const CHECK_USER_AUTH = 'app/App/CHECK_USER_AUTH';
 export const SET_USER_AUTH = 'app/App/SET_USER_AUTH';
 export const ERROR_USER_AUTH = 'app/App/ERROR_USER_AUTH';
+export const UNSET_USER_AUTH = 'app/App/UNSET_USER_AUTH';

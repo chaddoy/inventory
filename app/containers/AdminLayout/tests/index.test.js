@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mountWithIntl } from 'helpers/intl-enzyme-test-helper';
 
 import { AdminLayout } from '../index';
 
 describe('<AdminLayout />', () => {
   it('should render a Component inside `AdminLayout`', () => {
-    const wrapper = mount(
+    const wrapper = mountWithIntl(
       <AdminLayout>
         <div className="child-component">
           Test
