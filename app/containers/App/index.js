@@ -12,9 +12,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
+import PublicLayout from 'containers/PublicLayout/Loadable';
+import AdminLayout from 'containers/AdminLayout/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -29,14 +32,30 @@ const userIsAuthenticated = connectedRouterRedirect({
   wrapperDisplayName: 'UserIsAuthenticated',
 });
 
+export const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => (
+      <Layout>
+        <Component {...props} />
+      </Layout>
+    )}
+  />
+);
+
 export default function App() {
   return (
     <div>
       <Switch>
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/" component={userIsAuthenticated(HomePage)} />
-        <Route component={NotFoundPage} />
+        <AppRoute exact path="/login" layout={PublicLayout} component={LoginPage} />
+        <AppRoute exact path="/" layout={AdminLayout} component={userIsAuthenticated(HomePage)} />
+        <AppRoute layout={PublicLayout} component={NotFoundPage} />
       </Switch>
     </div>
   );
 }
+
+AppRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+  layout: PropTypes.func.isRequired,
+};

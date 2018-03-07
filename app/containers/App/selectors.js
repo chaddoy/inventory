@@ -24,9 +24,15 @@ const makeSelectMessageToUser = () => createSelector(
   (routeState) => routeState.get('messageToUser'),
 );
 
+const makeSelectUser = () => createSelector(
+  selectApp,
+  (routeState) => routeState.get('user'),
+);
+
 export {
   makeSelectLocation,
   makeSelectAuthenticating,
   makeSelectAuthenticated,
   makeSelectMessageToUser,
+  makeSelectUser,
 };

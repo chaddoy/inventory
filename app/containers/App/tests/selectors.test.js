@@ -5,6 +5,7 @@ import {
   makeSelectAuthenticating,
   makeSelectAuthenticated,
   makeSelectMessageToUser,
+  makeSelectUser,
 } from 'containers/App/selectors';
 
 describe('makeSelectLocation', () => {
@@ -52,5 +53,17 @@ describe('makeSelectMessageToUser', () => {
       app,
     });
     expect(makeSelectMessageToUser()(mockedState)).toEqual(app.get('messageToUser'));
+  });
+});
+
+describe('makeSelectUser', () => {
+  it('should select the app/user', () => {
+    const app = fromJS({
+      user: {},
+    });
+    const mockedState = fromJS({
+      app,
+    });
+    expect(makeSelectUser()(mockedState)).toEqual(app.get('user'));
   });
 });

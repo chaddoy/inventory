@@ -16,10 +16,12 @@ const creds = {
 };
 
 const response = [{
+  id: 1,
   username: 'admin',
   password: 'admin',
   firstName: 'Abraham',
   lastName: 'Maslow',
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/doronmalki/128.jpg',
 }];
 
 /* eslint-disable redux-saga/yield-effects */

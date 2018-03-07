@@ -16,6 +16,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import CryptoJS from 'crypto-js';
 import 'sanitize.css/sanitize.css';
+import 'font-awesome/css/font-awesome.css';
 
 // Import root app
 import App from 'containers/App';
