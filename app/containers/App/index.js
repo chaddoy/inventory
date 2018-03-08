@@ -23,6 +23,8 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import LogoutPage from 'containers/LogoutPage/Loadable';
 
+import { NAVS } from './constants';
+
 const userIsAuthenticated = connectedRouterRedirect({
    // The url to redirect user to if they fail
   redirectPath: '/login',
@@ -37,7 +39,7 @@ export const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
   <Route
     {...rest}
     render={(props) => (
-      <Layout>
+      <Layout navs={NAVS}>
         <Component {...props} />
       </Layout>
     )}

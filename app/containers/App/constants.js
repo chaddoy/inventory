@@ -14,3 +14,15 @@ export const CHECK_USER_AUTH = 'app/App/CHECK_USER_AUTH';
 export const SET_USER_AUTH = 'app/App/SET_USER_AUTH';
 export const ERROR_USER_AUTH = 'app/App/ERROR_USER_AUTH';
 export const UNSET_USER_AUTH = 'app/App/UNSET_USER_AUTH';
+
+export const NAVS = [{
+  path: '/',
+  displayName: 'Dashboard',
+  name: 'dashboard',
+  icon: 'dashboard',
+}, {
+  path: '/users',
+  displayName: 'Users',
+  name: 'users',
+  icon: 'user-o',
+}];

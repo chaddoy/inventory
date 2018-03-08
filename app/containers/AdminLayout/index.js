@@ -11,10 +11,15 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Layout, Menu, Icon, Avatar, Row, Col, Dropdown, Badge } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Dropdown, Badge } from 'antd';
 import FontAwesome from 'react-fontawesome';
 
+// Selectors
 import { makeSelectUser } from 'containers/App/selectors';
+
+// Components
+import LayoutSidebar from 'components/LayoutSidebar';
+
 import messages from './messages';
 import './styles';
 
@@ -39,29 +44,8 @@ export class AdminLayout extends React.Component { // eslint-disable-line react/
     return (
       <div className="adminlayout">
         <Layout style={{ height: '100vh' }}>
-          <Sider
-            breakpoint="lg"
-            collapsedWidth="0"
-          >
-            <div className="adminlayout-logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-              <Menu.Item key="1">
-                <FontAwesome className="padding-10 pad-right" name="user-o" />
-                <span className="nav-text">Users</span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span className="nav-text">nav 2</span>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span className="nav-text">nav 3</span>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Icon type="user" />
-                <span className="nav-text">nav 4</span>
-              </Menu.Item>
-            </Menu>
+          <Sider breakpoint="lg" collapsedWidth="0">
+            <LayoutSidebar navs={this.props.navs} />
           </Sider>
           <Layout>
             <Header style={{ background: '#fff', padding: 0 }}>
@@ -146,6 +130,7 @@ export class AdminLayout extends React.Component { // eslint-disable-line react/
 
 AdminLayout.propTypes = {
   children: PropTypes.object.isRequired,
+  navs: PropTypes.array.isRequired,
   user: PropTypes.object,
 };
 
