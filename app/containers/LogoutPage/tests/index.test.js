@@ -20,6 +20,8 @@ describe('<LogoutPage />', () => {
     const logOutSpy = jest.spyOn(props, 'logOut');
     mountWithIntl(<LogoutPage {...props} />);
     expect(logOutSpy).toHaveBeenCalledTimes(1);
+    logOutSpy.mockReset();
+    logOutSpy.mockRestore();
   });
 
   it('should dispatch `logOut` on mount', () => {

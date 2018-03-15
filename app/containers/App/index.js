@@ -18,6 +18,7 @@ import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
 import PublicLayout from 'containers/PublicLayout/Loadable';
 import AdminLayout from 'containers/AdminLayout/Loadable';
+import SignUpPage from 'containers/SignUpPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -52,6 +53,7 @@ export default function App() {
       <Switch>
         <AppRoute exact path="/login" layout={PublicLayout} component={LoginPage} />
         <AppRoute exact path="/" layout={AdminLayout} component={userIsAuthenticated(HomePage)} />
+        <AppRoute exact path="/signup" layout={PublicLayout} component={SignUpPage} />
         <Route exact path="/logout" component={LogoutPage} />
         <AppRoute layout={PublicLayout} component={NotFoundPage} />
       </Switch>

@@ -6,7 +6,7 @@ import { AdminLayout } from '../index';
 describe('<AdminLayout />', () => {
   it('should render a Component inside `AdminLayout`', () => {
     const wrapper = mountWithIntl(
-      <AdminLayout>
+      <AdminLayout navs={[]}>
         <div className="child-component">
           Test
         </div>

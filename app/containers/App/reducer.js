@@ -29,8 +29,8 @@ function appReducer(state = initialState, action) {
 
     case SET_USER_AUTH: {
       const userString = JSON.stringify(action.user);
-      const encryptedUser = CryptoJS.AES.encrypt(userString, 'capd-user');
-      localStorage.setItem('capd-user', encryptedUser);
+      const encryptedUser = CryptoJS.AES.encrypt(userString, 'capd.user');
+      localStorage.setItem('capd.user', encryptedUser);
       return state
         .set('authenticated', true)
         .set('authenticating', false)
@@ -44,7 +44,7 @@ function appReducer(state = initialState, action) {
         .set('authenticated', false);
 
     case UNSET_USER_AUTH: {
-      localStorage.removeItem('capd-user');
+      localStorage.removeItem('capd.user');
       return state
         .set('user', null)
         .set('authenticating', false)

@@ -12,6 +12,7 @@ describe('<LoginPage />', () => {
   const props = {
     onLogin: jest.fn(),
     authenticated: false,
+    authenticating: false,
   };
 
   beforeEach(() => {
