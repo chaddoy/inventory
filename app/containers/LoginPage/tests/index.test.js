@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Form } from 'antd';
+import { shallow } from 'enzyme';
 import { mountWithIntl } from 'helpers/intl-enzyme-test-helper';
+import { Redirect } from 'react-router-dom';
+import { Form } from 'antd';
 
 import { checkUserAuth } from 'containers/App/actions';
 import { LoginPage, mapDispatchToProps } from '../index';
@@ -44,13 +45,12 @@ describe('<LoginPage />', () => {
   });
 
   it('should redirect to homepage if logged in already', () => {
-    const newProps = Object.assign(props, { authenticated: true });
-    wrapper = mountWithIntl(
-      <Router>
-        <WrappedForm {...newProps} />
-      </Router>
-    );
-    expect(wrapper.find('.loginpage-form').first()).toHaveLength(0);
+    const newProps = Object.assign({}, props, {
+      authenticated: true,
+      form: { getFieldDecorator: jest.fn() },
+    });
+    wrapper = shallow(<LoginPage {...newProps} />);
+    expect(wrapper.find(Redirect)).toHaveLength(1);
   });
 });
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { shallow } from 'enzyme';
 import { mountWithIntl } from 'helpers/intl-enzyme-test-helper';
+import { Redirect } from 'react-router-dom';
 
 import { unsetUserAuth } from 'containers/App/actions';
 import { LogoutPage, mapDispatchToProps } from '../index';
@@ -25,14 +26,12 @@ describe('<LogoutPage />', () => {
   });
 
   it('should dispatch `logOut` on mount', () => {
-    props.authenticated = false;
-    props.user = null;
-    const wrapper = mountWithIntl(
-      <Router>
-        <LogoutPage {...props} />
-      </Router>
-    );
-    expect(wrapper.find('.logoutpage-wrapper')).toHaveLength(0);
+    const newProps = Object.assign({}, props, {
+      authenticated: false,
+      user: null,
+    });
+    const wrapper = shallow(<LogoutPage {...newProps} />);
+    expect(wrapper.find(Redirect)).toHaveLength(1);
   });
 
   describe('mapDispatchToProps', () => {
