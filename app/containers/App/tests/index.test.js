@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { shallow, mount } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { fromJS } from 'immutable';
 
-import App, { AppRoute } from '../index';
+import App, { AppRoute, authenticatedSelector } from '../index';
 
 describe('<App />', () => {
   it('should render some routes', () => {
@@ -22,6 +23,15 @@ describe('<App />', () => {
         <AppRoute layout={Layout} component={Component} />
       </Router>
     );
-    expect(renderedComponent.find('.component').length).not.toBe(0);
+    expect(renderedComponent.find('.component')).toHaveLength(1);
+  });
+
+  describe('authenticatedSelector', () => {
+    it('should select `authenticated` state', () => {
+      const state = fromJS({
+        app: { authenticated: true },
+      });
+      expect(authenticatedSelector(state)).toBeTruthy();
+    });
   });
 });

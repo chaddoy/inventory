@@ -26,12 +26,15 @@ import LogoutPage from 'containers/LogoutPage/Loadable';
 
 import { NAVS } from './constants';
 
+export const authenticatedSelector = (state) =>
+  state.get('app').get('authenticated');
+
 const userIsAuthenticated = connectedRouterRedirect({
    // The url to redirect user to if they fail
   redirectPath: '/login',
    // If selector is true, wrapper will not redirect
    // For example let's check that state contains user data
-  authenticatedSelector: (state) => state.get('app').get('authenticated'),
+  authenticatedSelector,
   // A nice display name for this check
   wrapperDisplayName: 'UserIsAuthenticated',
 });
@@ -55,7 +58,7 @@ export default function App() {
         <AppRoute exact path="/" layout={AdminLayout} component={userIsAuthenticated(HomePage)} />
         <AppRoute exact path="/signup" layout={PublicLayout} component={SignUpPage} />
         <Route exact path="/logout" component={LogoutPage} />
-        <AppRoute layout={PublicLayout} component={NotFoundPage} />
+        <AppRoute path="" layout={PublicLayout} component={NotFoundPage} />
       </Switch>
     </div>
   );
