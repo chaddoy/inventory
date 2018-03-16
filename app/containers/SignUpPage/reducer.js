@@ -13,7 +13,8 @@ import {
 
 const initialState = fromJS({
   signingUp: false,
-  signUpError: null,
+  signUpError: false,
+  messageToUser: '',
 });
 
 function signUpPageReducer(state = initialState, action) {
@@ -21,17 +22,20 @@ function signUpPageReducer(state = initialState, action) {
     case SIGNUP_USER:
       return state
         .set('signingUp', true)
-        .set('signUpError', null);
+        .set('signUpError', false)
+        .set('messageToUser', '');
 
     case SIGNUP_USER_SUCCESS:
       return state
         .set('signingUp', false)
-        .set('signUpError', null);
+        .set('signUpError', false)
+        .set('messageToUser', action.msgToUser);
 
     case SIGNUP_USER_ERROR:
       return state
         .set('signingUp', false)
-        .set('signUpError', action.errorMsg);
+        .set('signUpError', true)
+        .set('messageToUser', action.errorMsg);
 
     default:
       return state;

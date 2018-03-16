@@ -26,6 +26,9 @@ import messages from './messages';
 
 export class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { handleSignUp, signuppage } = this.props;
+    const { signingUp, signUpError, messageToUser } = signuppage;
+
     return (
       <div>
         <Helmet>
@@ -43,7 +46,10 @@ export class SignUpPage extends React.PureComponent { // eslint-disable-line rea
               bodyStyle={{ paddingBottom: '0px' }}
             >
               <SignUpForm
-                signUp={this.props.handleSignUp}
+                signUp={handleSignUp}
+                saving={signingUp}
+                hasError={signUpError}
+                msgToUser={messageToUser}
               />
             </Card>
           </Col>
@@ -55,6 +61,7 @@ export class SignUpPage extends React.PureComponent { // eslint-disable-line rea
 }
 
 SignUpPage.propTypes = {
+  signuppage: PropTypes.object.isRequired,
   handleSignUp: PropTypes.func.isRequired,
 };
 

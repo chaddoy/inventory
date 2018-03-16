@@ -13,7 +13,8 @@ describe('signUpPageReducer', () => {
   beforeEach(() => {
     state = fromJS({
       signingUp: false,
-      signUpError: null,
+      signUpError: false,
+      messageToUser: '',
     });
   });
 
@@ -28,16 +29,19 @@ describe('signUpPageReducer', () => {
     };
     const expectedResult = state
       .set('signingUp', true)
-      .set('signUpError', null);
+      .set('signUpError', false)
+      .set('messageToUser', '');
     expect(signUpPageReducer(state, signUpUser(creds)))
       .toEqual(expectedResult);
   });
 
   it('should handle the signUpUserSuccess action correctly', () => {
+    const msgToUser = 'Something went wrong';
     const expectedResult = state
       .set('signingUp', false)
-      .set('signUpError', null);
-    expect(signUpPageReducer(state, signUpUserSuccess()))
+      .set('signUpError', false)
+      .set('messageToUser', msgToUser);
+    expect(signUpPageReducer(state, signUpUserSuccess(msgToUser)))
       .toEqual(expectedResult);
   });
 
@@ -45,7 +49,8 @@ describe('signUpPageReducer', () => {
     const errorMsg = 'Something went wrong';
     const expectedResult = state
       .set('signingUp', false)
-      .set('signUpError', errorMsg);
+      .set('signUpError', true)
+      .set('messageToUser', errorMsg);
     expect(signUpPageReducer(state, signUpUserError(errorMsg)))
       .toEqual(expectedResult);
   });

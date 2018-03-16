@@ -18,9 +18,10 @@ export function signUpUser({ email, password }) {
   };
 }
 
-export function signUpUserSuccess() {
+export function signUpUserSuccess(msgToUser) {
   return {
     type: SIGNUP_USER_SUCCESS,
+    msgToUser,
   };
 }
 

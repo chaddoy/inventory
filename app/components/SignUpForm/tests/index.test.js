@@ -40,7 +40,7 @@ describe('<SignUpForm />', () => {
     });
     wrapper.find('.signupform-password').simulate('change');
     expect(wrapper.find('.ant-form-explain').first().text())
-      .toEqual('Two passwords that you enter is inconsistent!');
+      .toEqual('Passwords did not matched');
   });
 
   it('should force the `confirmPassword` field to validate', () => {

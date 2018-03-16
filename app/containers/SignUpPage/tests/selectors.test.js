@@ -10,7 +10,7 @@ describe('selectSignUpPageDomain', () => {
   it('should select `signUpPage` state', () => {
     const signUpPage = fromJS({
       signingUp: false,
-      signUpError: null,
+      signUpError: '',
     });
     const mockedState = fromJS({
       signUpPage,
@@ -24,7 +24,7 @@ describe('makeSelectSignUpPage', () => {
   it('should select `SignUpPage` state', () => {
     const state = {
       signingUp: false,
-      signUpError: null,
+      signUpError: '',
     };
     const signUpPage = fromJS(state);
     const mockedState = fromJS({
@@ -50,7 +50,7 @@ describe('makeSelectSigningUp', () => {
 describe('makeSelectSignUpError', () => {
   it('should select the signUpPage/signUpError', () => {
     const signUpPage = fromJS({
-      signUpError: null,
+      signUpError: '',
     });
     const mockedState = fromJS({
       signUpPage,

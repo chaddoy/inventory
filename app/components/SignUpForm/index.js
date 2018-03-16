@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Col, Button } from 'antd';
+import { Form, Alert, Input, Col, Button } from 'antd';
 // import styled from 'styled-components';
 
 import { FORM_ITEM_LAYOUT } from './constants';
@@ -42,15 +42,37 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+    const validLength = value.length >= 6;
+    if (value && validLength && value !== form.getFieldValue('password')) {
+      callback('Passwords did not matched');
     } else {
       callback();
     }
   }
 
+  displayAlert = (hasError, msgToUser) => (
+    hasError
+      ? (<Alert
+        className="text-center"
+        message={msgToUser}
+        type={hasError ? 'error' : 'success'}
+      />)
+      : null
+  )
+
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { form, saving, isSuccess, hasError, msgToUser } = this.props;
+    const { getFieldDecorator } = form;
+
+    if (isSuccess) {
+      return (
+        <Alert
+          className="text-center"
+          message={msgToUser}
+          type={hasError ? 'error' : 'success'}
+        />
+      );
+    }
 
     return (
       <Form onSubmit={this.handleSubmit} layout="horizontal">
@@ -82,6 +104,9 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
               required: true,
               message: 'Please input your password',
             }, {
+              min: 6,
+              message: 'Password should be at least 6 characters',
+            }, {
               validator: this.validateToNextPassword,
             }],
           })(
@@ -103,6 +128,9 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
               required: true,
               message: 'Please input your confirm password',
             }, {
+              min: 6,
+              message: 'Password should be at least 6 characters',
+            }, {
               validator: this.compareToFirstPassword,
             }],
           })(
@@ -115,6 +143,10 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           )}
         </FormItem>
 
+        {this.displayAlert(hasError, msgToUser)}
+
+        <br />
+
         <FormItem>
           <Col xs={24} sm={24} md={0} lg={0}>
             <Button
@@ -123,6 +155,7 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
               className="pull-right"
               size="large"
               style={{ width: '100%' }}
+              loading={saving}
             >
               Submit
             </Button>
@@ -133,6 +166,7 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
               type="primary"
               htmlType="submit"
               size="large"
+              loading={saving}
             >
               Submit
             </Button>
@@ -146,6 +180,10 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 SignUpForm.propTypes = {
   form: PropTypes.object.isRequired,
   signUp: PropTypes.func.isRequired,
+  saving: PropTypes.bool.isRequired,
+  isSuccess: PropTypes.bool.isRequired,
+  hasError: PropTypes.bool.isRequired,
+  msgToUser: PropTypes.string,
 };
 
 export default Form.create()(SignUpForm);
