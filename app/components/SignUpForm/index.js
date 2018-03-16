@@ -54,7 +54,11 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
     return (
       <Form onSubmit={this.handleSubmit} layout="horizontal">
-        <FormItem {...FORM_ITEM_LAYOUT} label="Email">
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="Email"
+          hasFeedback
+        >
           {getFieldDecorator('email', {
             rules: [{
               type: 'email',
@@ -68,7 +72,11 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           )}
         </FormItem>
 
-        <FormItem {...FORM_ITEM_LAYOUT} label="Password">
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="Password"
+          hasFeedback
+        >
           {getFieldDecorator('password', {
             rules: [{
               required: true,
@@ -85,7 +93,11 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           )}
         </FormItem>
 
-        <FormItem {...FORM_ITEM_LAYOUT} label="Confirm Password">
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="Confirm Password"
+          hasFeedback
+        >
           {getFieldDecorator('confirmPassword', {
             rules: [{
               required: true,
