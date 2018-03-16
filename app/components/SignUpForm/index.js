@@ -42,8 +42,8 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
-    const validLength = value.length >= 6;
-    if (value && validLength && value !== form.getFieldValue('password')) {
+    const validLength = value && value.length >= 6;
+    if (validLength && value !== form.getFieldValue('password')) {
       callback('Passwords did not matched');
     } else {
       callback();
