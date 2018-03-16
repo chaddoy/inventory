@@ -22,7 +22,7 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.register(values);
+        this.props.signUp(values);
       }
     });
   }
@@ -133,7 +133,7 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
 SignUpForm.propTypes = {
   form: PropTypes.object.isRequired,
-  register: PropTypes.func.isRequired,
+  signUp: PropTypes.func.isRequired,
 };
 
 export default Form.create()(SignUpForm);

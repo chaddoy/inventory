@@ -9,7 +9,7 @@ describe('<SignUpForm />', () => {
 
   beforeEach(() => {
     props = {
-      register: jest.fn(),
+      signUp: jest.fn(),
     };
   });
 
@@ -62,17 +62,17 @@ describe('<SignUpForm />', () => {
     expect(wrapper.state('confirmDirty')).toEqual(true);
   });
 
-  it('should NOT call `register` if form is INVALID on `handleSubmit`', () => {
-    const registerSpy = jest.spyOn(props, 'register');
+  it('should NOT call `signUp` if form is INVALID on `handleSubmit`', () => {
+    const signUpSpy = jest.spyOn(props, 'signUp');
     const wrapper = mount(<SignUpForm {...props} />);
     wrapper.find('form').first().simulate('submit');
-    expect(registerSpy).toHaveBeenCalledTimes(0);
-    registerSpy.mockReset();
-    registerSpy.mockRestore();
+    expect(signUpSpy).toHaveBeenCalledTimes(0);
+    signUpSpy.mockReset();
+    signUpSpy.mockRestore();
   });
   //
-  it('should call `register` if form is VALID on `handleSubmit`', () => {
-    const registerSpy = jest.spyOn(props, 'register');
+  it('should call `signUp` if form is VALID on `handleSubmit`', () => {
+    const signUpSpy = jest.spyOn(props, 'signUp');
     const wrapper = mount(<SignUpForm {...props} />);
     wrapper.node.setFieldsValue({
       email: 'email@email.com',
@@ -80,8 +80,8 @@ describe('<SignUpForm />', () => {
       confirmPassword: 'myPassword',
     });
     wrapper.find('form').first().simulate('submit');
-    expect(registerSpy).toHaveBeenCalledTimes(1);
-    registerSpy.mockReset();
-    registerSpy.mockRestore();
+    expect(signUpSpy).toHaveBeenCalledTimes(1);
+    signUpSpy.mockReset();
+    signUpSpy.mockRestore();
   });
 });

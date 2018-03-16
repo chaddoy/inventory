@@ -8,7 +8,15 @@ const selectSignUpPageDomain = (state) => state.get('signUpPage');
 /**
  * Other specific selectors
  */
+const makeSelectSigningUp = () => createSelector(
+  selectSignUpPageDomain,
+  (substate) => substate.get('signingUp')
+);
 
+const makeSelectSignUpError = () => createSelector(
+  selectSignUpPageDomain,
+  (substate) => substate.get('signUpError')
+);
 
 /**
  * Default selector used by SignUpPage
@@ -22,4 +30,6 @@ const makeSelectSignUpPage = () => createSelector(
 export default makeSelectSignUpPage;
 export {
   selectSignUpPageDomain,
+  makeSelectSigningUp,
+  makeSelectSignUpError,
 };

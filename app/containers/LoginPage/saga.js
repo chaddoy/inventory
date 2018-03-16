@@ -1,8 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { USERS, LOGIN_ERROR_MSG } from 'containers/LoginPage/constants';
 import { CHECK_USER_AUTH } from 'containers/App/constants';
 import { setUserAuth, errUserAuth } from 'containers/App/actions';
 import _ from 'lodash';
+
+import { USERS, LOGIN_ERROR_MSG } from './constants';
 
 export function* checkAuth({ username, password }) {
   try {

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -18,19 +18,13 @@ import injectReducer from 'utils/injectReducer';
 
 import SignUpForm from 'components/SignUpForm';
 
+import { signUpUser } from './actions';
 import makeSelectSignUpPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
 export class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  handleRegister = () => {
-    // auth.doCreateUserWithEmailAndPassword(email, password)
-    //   .then((authUser) => {
-    //     TODO: dispatch success registration
-    //   })
-  }
-
   render() {
     return (
       <div>
@@ -49,7 +43,7 @@ export class SignUpPage extends React.PureComponent { // eslint-disable-line rea
               bodyStyle={{ paddingBottom: '0px' }}
             >
               <SignUpForm
-                register={this.handleRegister}
+                signUp={this.props.handleSignUp}
               />
             </Card>
           </Col>
@@ -61,15 +55,16 @@ export class SignUpPage extends React.PureComponent { // eslint-disable-line rea
 }
 
 SignUpPage.propTypes = {
+  handleSignUp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   signuppage: makeSelectSignUpPage(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    handleSignUp: (creds) => dispatch(signUpUser(creds)),
   };
 }
 

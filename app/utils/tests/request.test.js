@@ -6,7 +6,7 @@ import {
   postRequest,
   putRequest,
   deleteRequest,
-} from 'utils/request';
+} from '../request';
 
 jest.mock('axios');
 

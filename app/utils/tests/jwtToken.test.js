@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { handleJwtToken, expireJwtToken } from 'utils/jwtToken';
+import { handleJwtToken, expireJwtToken } from '../jwtToken';
 
 describe('jwtToken', () => {
   beforeEach(() => {

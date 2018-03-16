@@ -1,6 +1,30 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import {
+  call,
+  // put,
+  takeEvery,
+} from 'redux-saga/effects';
+import { auth } from 'utils/firebase';
 
-// Individual exports for testing
-export default function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
+import {
+  // signUpUserSuccess,
+  // signUpUserError,
+} from './actions';
+import { SIGNUP_USER } from './constants';
+
+export function* registerUser({ email, password }) {
+  try {
+    const response = yield call(
+      auth.doCreateUserWithEmailAndPassword,
+      email,
+      password
+    );
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+    // yield put(signUpUserError());
+  }
+}
+
+export default function* watchSignUp() {
+  yield takeEvery(SIGNUP_USER, registerUser);
 }
