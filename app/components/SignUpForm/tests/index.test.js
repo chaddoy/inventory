@@ -18,6 +18,16 @@ describe('<SignUpForm />', () => {
     expect(wrapper.find(Form)).toHaveLength(1);
   });
 
+  it('should inform user that the email is invalid', () => {
+    const wrapper = mount(<SignUpForm {...props} />);
+    wrapper.node.setFieldsValue({
+      email: 'invalidEmail',
+    });
+    wrapper.find('.signupform-email').simulate('change');
+    expect(wrapper.find('.ant-form-explain').first().text())
+      .toEqual('Invalid email address');
+  });
+
   it('should inform user that the passwords are not equal', () => {
     const wrapper = mount(<SignUpForm {...props} />);
     wrapper.node.setFieldsValue({
@@ -41,7 +51,7 @@ describe('<SignUpForm />', () => {
     });
     wrapper.find('.signupform-password').simulate('change');
     expect(wrapper.find('.ant-form-explain').first().text())
-      .toEqual('Please input your confirm password.');
+      .toEqual('Please input your confirm password');
   });
 
   it('should change `confirmDirty` state `onBlur`', () => {

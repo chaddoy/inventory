@@ -1,8 +1,10 @@
-import { browserHistory } from 'react-router';
 import axios from 'axios';
+import { createBrowserHistory } from 'history';
 
 axios.defaults.baseURL = '/api';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+export const browserHistory = createBrowserHistory();
 
 function parseJSON(response) {
   return response.data;
@@ -16,6 +18,7 @@ function handleError(response) {
   const apiFlag = (url !== '/api/users/reset-password') && (url !== '/api/authentications');
 
   if (err.response.status === 401 && apiFlag) {
+    console.log(browserHistory);
     browserHistory.push('/logout');
   }
 
@@ -47,10 +50,8 @@ export function deleteRequest(url) {
 }
 
 export function setAuthorizationToken(token) {
-  console.table([{ TOKEN: token }]);
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    window.token = `Bearer ${token}`;
   } else {
     delete axios.defaults.headers.common.Authorization;
   }

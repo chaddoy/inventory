@@ -58,10 +58,10 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           {getFieldDecorator('email', {
             rules: [{
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: 'Invalid email address',
             }, {
               required: true,
-              message: 'Please input your email.',
+              message: 'Please input your email',
             }],
           })(
             <Input className="signupform-email" size="large" />
@@ -72,7 +72,7 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           {getFieldDecorator('password', {
             rules: [{
               required: true,
-              message: 'Please input your password.',
+              message: 'Please input your password',
             }, {
               validator: this.validateToNextPassword,
             }],
@@ -89,7 +89,7 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           {getFieldDecorator('confirmPassword', {
             rules: [{
               required: true,
-              message: 'Please input your confirm password.',
+              message: 'Please input your confirm password',
             }, {
               validator: this.compareToFirstPassword,
             }],
