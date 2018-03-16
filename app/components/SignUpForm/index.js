@@ -66,11 +66,14 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
     if (isSuccess) {
       return (
-        <Alert
-          className="text-center"
-          message={msgToUser}
-          type={hasError ? 'error' : 'success'}
-        />
+        <div>
+          <Alert
+            className="text-center"
+            message={msgToUser}
+            type="success"
+          />
+          <br />
+        </div>
       );
     }
 

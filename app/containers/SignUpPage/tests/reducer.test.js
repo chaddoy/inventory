@@ -13,6 +13,7 @@ describe('signUpPageReducer', () => {
   beforeEach(() => {
     state = fromJS({
       signingUp: false,
+      signUpSuccess: false,
       signUpError: false,
       messageToUser: '',
     });
@@ -29,6 +30,7 @@ describe('signUpPageReducer', () => {
     };
     const expectedResult = state
       .set('signingUp', true)
+      .set('signUpSuccess', false)
       .set('signUpError', false)
       .set('messageToUser', '');
     expect(signUpPageReducer(state, signUpUser(creds)))
@@ -39,6 +41,7 @@ describe('signUpPageReducer', () => {
     const msgToUser = 'Something went wrong';
     const expectedResult = state
       .set('signingUp', false)
+      .set('signUpSuccess', true)
       .set('signUpError', false)
       .set('messageToUser', msgToUser);
     expect(signUpPageReducer(state, signUpUserSuccess(msgToUser)))
@@ -49,6 +52,7 @@ describe('signUpPageReducer', () => {
     const errorMsg = 'Something went wrong';
     const expectedResult = state
       .set('signingUp', false)
+      .set('signUpSuccess', false)
       .set('signUpError', true)
       .set('messageToUser', errorMsg);
     expect(signUpPageReducer(state, signUpUserError(errorMsg)))

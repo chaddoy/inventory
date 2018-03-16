@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { auth } from 'utils/firebase';
 
 import { signUpUserSuccess, signUpUserError } from './actions';
-import { SIGNUP_USER } from './constants';
+import { SIGNUP_USER, SIGNUP_SUCCESS_MSG } from './constants';
 
 export function* registerUser({ email, password }) {
   try {
@@ -12,7 +12,7 @@ export function* registerUser({ email, password }) {
       password
     );
     console.log(response);
-    yield put(signUpUserSuccess());
+    yield put(signUpUserSuccess(SIGNUP_SUCCESS_MSG));
   } catch ({ message }) {
     yield put(signUpUserError(message));
   }
