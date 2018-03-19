@@ -12,7 +12,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Form, Icon, Input, Button, Alert } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import {
@@ -36,16 +36,6 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
     });
   }
 
-  displayError = (hasError) => (
-    hasError ? (
-      <Alert
-        className="text-center"
-        message="Wrong email or password"
-        type="error"
-      />
-    ) : null
-  )
-
   render() {
     const { getFieldDecorator } = this.props.form;
 
@@ -60,8 +50,6 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           <meta name="description" content="Description of Login" />
         </Helmet>
         <FormattedMessage {...messages.header} />
-
-        {this.displayError()}
 
         <Form onSubmit={this.handleSubmit} className="loginpage-form">
           <FormItem>
