@@ -48,6 +48,10 @@ injectGlobal`
     float: left;
   }
 
+  .clearfix {
+    clear: both;
+  }
+
   .padding-10 {
     &.pad-all {
       padding: 10px;

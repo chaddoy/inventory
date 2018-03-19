@@ -15,21 +15,21 @@ import {
 describe('App Actions', () => {
   describe('checkUserAuth', () => {
     it('should return the correct type and credentials', () => {
-      const username = 'username';
+      const email = 'email';
       const password = 'password';
       const expectedResult = {
         type: CHECK_USER_AUTH,
-        username,
+        email,
         password,
       };
-      expect(checkUserAuth({ username, password })).toEqual(expectedResult);
+      expect(checkUserAuth({ email, password })).toEqual(expectedResult);
     });
   });
 
   describe('setUserAuth', () => {
     it('should return the correct type and user info', () => {
       const user = {
-        username: 'admin',
+        email: 'admin',
         password: 'secret',
         firstName: 'Abraham',
         lastName: 'Maslow',

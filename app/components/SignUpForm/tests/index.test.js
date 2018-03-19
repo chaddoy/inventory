@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Form } from 'antd';
+import { Form, Alert } from 'antd';
 
 import SignUpForm from '../index';
 
@@ -10,6 +10,10 @@ describe('<SignUpForm />', () => {
   beforeEach(() => {
     props = {
       signUp: jest.fn(),
+      saving: false,
+      isSuccess: false,
+      hasError: false,
+      msgToUser: '',
     };
   });
 
@@ -70,7 +74,7 @@ describe('<SignUpForm />', () => {
     signUpSpy.mockReset();
     signUpSpy.mockRestore();
   });
-  //
+
   it('should call `signUp` if form is VALID on `handleSubmit`', () => {
     const signUpSpy = jest.spyOn(props, 'signUp');
     const wrapper = mount(<SignUpForm {...props} />);
@@ -83,5 +87,17 @@ describe('<SignUpForm />', () => {
     expect(signUpSpy).toHaveBeenCalledTimes(1);
     signUpSpy.mockReset();
     signUpSpy.mockRestore();
+  });
+
+  it('should display error `Alert` message', () => {
+    const errorProps = Object.assign({}, props, { hasError: true });
+    const wrapper = shallow(<SignUpForm {...errorProps} />).shallow();
+    expect(wrapper.find(Alert)).toHaveLength(1);
+  });
+
+  it('should display SignUp Success `Alert` message', () => {
+    const successProps = Object.assign({}, props, { isSuccess: true });
+    const wrapper = shallow(<SignUpForm {...successProps} />).shallow();
+    expect(wrapper.find(Alert)).toHaveLength(1);
   });
 });

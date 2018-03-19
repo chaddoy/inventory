@@ -11,10 +11,10 @@ import {
   UNSET_USER_AUTH,
 } from './constants';
 
-export function checkUserAuth({ username, password }) {
+export function checkUserAuth({ email, password }) {
   return {
     type: CHECK_USER_AUTH,
-    username,
+    email,
     password,
   };
 }

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`registerUser Saga should call the signUpUserError action if the response errors 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "email@email.com",
+      "myPassword",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`registerUser Saga should dispatch the signUpUserSuccess action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "email@email.com",
+      "myPassword",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;

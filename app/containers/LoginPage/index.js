@@ -12,7 +12,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Alert } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import {
@@ -36,6 +36,16 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
     });
   }
 
+  displayError = (hasError) => (
+    hasError ? (
+      <Alert
+        className="text-center"
+        message="Wrong email or password"
+        type="error"
+      />
+    ) : null
+  )
+
   render() {
     const { getFieldDecorator } = this.props.form;
 
@@ -51,20 +61,21 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
         </Helmet>
         <FormattedMessage {...messages.header} />
 
+        {this.displayError()}
+
         <Form onSubmit={this.handleSubmit} className="loginpage-form">
           <FormItem>
-            {getFieldDecorator('username', {
+            {getFieldDecorator('email', {
               rules: [{
                 required: true,
-                message: 'Please input your username!',
+                message: 'Please input your email',
               }],
-              initialValue: '',
             })(
               <Input
                 prefix={(
-                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                  <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
                 )}
-                placeholder="Username"
+                placeholder="Email"
               />
             )}
           </FormItem>
@@ -72,9 +83,8 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
             {getFieldDecorator('password', {
               rules: [{
                 required: true,
-                message: 'Please input your Password!',
+                message: 'Please input your password',
               }],
-              initialValue: '',
             })(
               <Input
                 prefix={(

@@ -30,14 +30,14 @@ describe('<LoginPage />', () => {
   it('should display empty fields error message', () => {
     wrapper.find('.loginpage-form').first().simulate('submit');
     expect(wrapper.find('.ant-form-explain')
-      .first().text()).toEqual('Please input your username!');
+      .first().text()).toEqual('Please input your email');
     expect(wrapper.find('.ant-form-explain')
-      .last().text()).toEqual('Please input your Password!');
+      .last().text()).toEqual('Please input your password');
   });
 
   it('should call `onLogin` if credentials are valid', () => {
     wrapper.node.setFieldsInitialValue({
-      username: 'jbrennan',
+      email: 'jbrennan',
       password: 'secret',
     });
     wrapper.find('.loginpage-form').first().simulate('submit');
@@ -66,7 +66,7 @@ describe('mapDispatchToProps', () => {
       const dispatch = jest.fn();
       const result = mapDispatchToProps(dispatch);
       const creds = {
-        username: 'jbrennan',
+        email: 'jbrennan',
         password: 'secret',
       };
       result.onLogin(creds);

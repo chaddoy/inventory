@@ -5,11 +5,12 @@
 */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form, Alert, Input, Col, Button } from 'antd';
+import { Form, Alert, Input, Col, Button, Icon } from 'antd';
 // import styled from 'styled-components';
 
-import { FORM_ITEM_LAYOUT } from './constants';
+import { FORM_ITEM_LAYOUT, SUCCESS_MSG, SUCCESS_DESC } from './constants';
 
 const FormItem = Form.Item;
 
@@ -50,12 +51,12 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
     }
   }
 
-  displayAlert = (hasError, msgToUser) => (
+  displayErrorMsg = (hasError, msgToUser) => (
     hasError
       ? (<Alert
         className="text-center"
         message={msgToUser}
-        type={hasError ? 'error' : 'success'}
+        type="error"
       />)
       : null
   )
@@ -66,13 +67,20 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
     if (isSuccess) {
       return (
-        <div>
+        <div className="padding-10 pad-bottom">
           <Alert
-            className="text-center"
-            message={msgToUser}
+            message={SUCCESS_MSG}
+            description={SUCCESS_DESC}
             type="success"
+            showIcon
           />
           <br />
+          <Link to="/login" className="padding-10 pad-bottom">
+            <Button className="pull-right" type="primary" size="large">
+              Login <Icon type="right" />
+            </Button>
+            <div className="clearfix"></div>
+          </Link>
         </div>
       );
     }
@@ -85,13 +93,10 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           hasFeedback
         >
           {getFieldDecorator('email', {
-            rules: [{
-              type: 'email',
-              message: 'Invalid email address',
-            }, {
-              required: true,
-              message: 'Please input your email',
-            }],
+            rules: [
+              { type: 'email', message: 'Invalid email address' },
+              { required: true, message: 'Please input your email' },
+            ],
           })(
             <Input className="signupform-email" size="large" />
           )}
@@ -103,15 +108,11 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           hasFeedback
         >
           {getFieldDecorator('password', {
-            rules: [{
-              required: true,
-              message: 'Please input your password',
-            }, {
-              min: 6,
-              message: 'Password should be at least 6 characters',
-            }, {
-              validator: this.validateToNextPassword,
-            }],
+            rules: [
+              { required: true, message: 'Please input your password' },
+              { min: 6, message: 'Password should be at least 6 characters' },
+              { validator: this.validateToNextPassword },
+            ],
           })(
             <Input
               className="signupform-password"
@@ -127,15 +128,11 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           hasFeedback
         >
           {getFieldDecorator('confirmPassword', {
-            rules: [{
-              required: true,
-              message: 'Please input your confirm password',
-            }, {
-              min: 6,
-              message: 'Password should be at least 6 characters',
-            }, {
-              validator: this.compareToFirstPassword,
-            }],
+            rules: [
+              { required: true, message: 'Please input your confirm password' },
+              { min: 6, message: 'Password should be at least 6 characters' },
+              { validator: this.compareToFirstPassword },
+            ],
           })(
             <Input
               className="signupform-confirm"
@@ -146,7 +143,7 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
           )}
         </FormItem>
 
-        {this.displayAlert(hasError, msgToUser)}
+        {this.displayErrorMsg(hasError, msgToUser)}
 
         <br />
 

@@ -1,3 +1,9 @@
+export const SUCCESS_MSG = 'Registration Successful!';
+export const SUCCESS_DESC = `
+  Please check your email in a few minutes to verify your account.
+  If you have not recieved it, please check your spam folder, then mark it as
+  NOT spam.
+`;
 export const FORM_ITEM_LAYOUT = {
   labelCol: {
     xs: {

@@ -6,10 +6,36 @@ import { signUpUser } from '../actions';
 import { SignUpPage, mapDispatchToProps } from '../index';
 
 describe('<SignUpPage />', () => {
+  let props;
+  beforeEach(() => {
+    props = {
+      handleSignUp: jest.fn(),
+      signuppage: {
+        signingUp: false,
+        signUpSuccess: false,
+        signUpError: false,
+        messageToUser: '',
+      },
+    };
+  });
+
   it('should contain `SignUpForm` component', () => {
-    const props = { handleSignUp: jest.fn() };
     const wrapper = shallowWithIntl(<SignUpPage {...props} />);
-    expect(wrapper.contains(<SignUpForm signUp={props.handleSignUp} />)).toBe(true);
+    const {
+      signingUp,
+      signUpSuccess,
+      signUpError,
+      messageToUser,
+    } = props.signuppage;
+    expect(wrapper.contains(
+      <SignUpForm
+        signUp={props.handleSignUp}
+        saving={signingUp}
+        isSuccess={signUpSuccess}
+        hasError={signUpError}
+        msgToUser={messageToUser}
+      />
+    )).toBe(true);
   });
 
   describe('mapDispatchToProps', () => {
