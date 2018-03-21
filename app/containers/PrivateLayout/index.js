@@ -1,6 +1,6 @@
 /**
  *
- * AdminLayout
+ * PrivateLayout
  *
  */
 
@@ -25,7 +25,7 @@ import './styles';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export class AdminLayout extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class PrivateLayout extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const menu = (
       <Menu>
@@ -128,7 +128,7 @@ export class AdminLayout extends React.Component { // eslint-disable-line react/
   }
 }
 
-AdminLayout.propTypes = {
+PrivateLayout.propTypes = {
   children: PropTypes.object.isRequired,
   navs: PropTypes.array.isRequired,
   user: PropTypes.object,
@@ -142,4 +142,4 @@ const withConnect = connect(mapStateToProps, null);
 
 export default compose(
   withConnect,
-)(AdminLayout);
+)(PrivateLayout);

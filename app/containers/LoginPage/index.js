@@ -9,10 +9,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Card, Row, Col } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import {
@@ -21,7 +20,6 @@ import {
 } from 'containers/App/selectors';
 import { checkUserAuth } from 'containers/App/actions';
 import saga from './saga';
-import messages from './messages';
 import './styles';
 
 const FormItem = Form.Item;
@@ -44,57 +42,84 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
     }
 
     return (
-      <div>
-        <Helmet>
-          <title>Login</title>
-          <meta name="description" content="Description of Login" />
-        </Helmet>
-        <FormattedMessage {...messages.header} />
+      <div className="loginpage-wrapper">
+        <div className="loginpage">
+          <Helmet>
+            <title>Login</title>
+            <meta name="description" content="Description of Login" />
+          </Helmet>
 
-        <Form onSubmit={this.handleSubmit} className="loginpage-form">
-          <FormItem>
-            {getFieldDecorator('email', {
-              rules: [{
-                required: true,
-                message: 'Please input your email',
-              }],
-            })(
-              <Input
-                prefix={(
-                  <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
-                )}
-                placeholder="Email"
-              />
-            )}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('password', {
-              rules: [{
-                required: true,
-                message: 'Please input your password',
-              }],
-            })(
-              <Input
-                prefix={(
-                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
-                )}
-                type="password"
-                placeholder="Password"
-              />
-            )}
-          </FormItem>
-          <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="loginpage-form-button"
-              loading={this.props.authenticating}
-            >
-              Log in
-            </Button>
-            <a className="loginpage-form-forgot" href="">Forgot password</a>
-          </FormItem>
-        </Form>
+          <Row>
+            <Col xs={1} sm={4} md={6} lg={7} xl={9}></Col>
+            <Col xs={22} sm={16} md={12} lg={10} xl={6}>
+              <Card
+                title="Login"
+                style={{ margin: 'auto' }}
+                bodyStyle={{ paddingBottom: '0px' }}
+              >
+                <Form onSubmit={this.handleSubmit} className="loginpage-form">
+                  <FormItem>
+                    {getFieldDecorator('email', {
+                      rules: [{
+                        required: true,
+                        message: 'Please input your email',
+                      }, {
+                        type: 'email',
+                        message: 'Invalid email address',
+                      }],
+                    })(
+                      <Input
+                        prefix={(
+                          <Icon
+                            type="mail"
+                            style={{ color: 'rgba(0,0,0,.25)' }}
+                          />
+                        )}
+                        placeholder="Email"
+                        size="large"
+                      />
+                    )}
+                  </FormItem>
+                  <FormItem>
+                    {getFieldDecorator('password', {
+                      rules: [{
+                        required: true,
+                        message: 'Please input your password',
+                      }],
+                    })(
+                      <Input
+                        prefix={(
+                          <Icon
+                            type="lock"
+                            style={{ color: 'rgba(0,0,0,.25)' }}
+                          />
+                        )}
+                        type="password"
+                        placeholder="Password"
+                        size="large"
+                      />
+                    )}
+                  </FormItem>
+                  <FormItem>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="loginpage-form-button"
+                      loading={this.props.authenticating}
+                      size="large"
+                    >
+                      Log in
+                    </Button>
+                    <a className="loginpage-form-forgot" href="">
+                      Forgot password
+                    </a>
+                  </FormItem>
+                </Form>
+              </Card>
+            </Col>
+            <Col xs={1} sm={4} md={6} lg={7} xl={9}></Col>
+          </Row>
+        </div>
       </div>
     );
   }

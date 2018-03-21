@@ -37,8 +37,8 @@ describe('<LoginPage />', () => {
 
   it('should call `onLogin` if credentials are valid', () => {
     wrapper.node.setFieldsInitialValue({
-      email: 'jbrennan',
-      password: 'secret',
+      email: 'email@email.com',
+      password: 'myPassword',
     });
     wrapper.find('.loginpage-form').first().simulate('submit');
     expect(props.onLogin).toHaveBeenCalledTimes(1);
@@ -66,8 +66,8 @@ describe('mapDispatchToProps', () => {
       const dispatch = jest.fn();
       const result = mapDispatchToProps(dispatch);
       const creds = {
-        email: 'jbrennan',
-        password: 'secret',
+        email: 'email@email.com',
+        password: 'myPassword',
       };
       result.onLogin(creds);
       expect(dispatch).toHaveBeenCalledWith(checkUserAuth(creds));

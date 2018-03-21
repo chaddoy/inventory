@@ -17,7 +17,7 @@ import { Switch, Route } from 'react-router-dom';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
 import PublicLayout from 'containers/PublicLayout/Loadable';
-import AdminLayout from 'containers/AdminLayout/Loadable';
+import PrivateLayout from 'containers/PrivateLayout/Loadable';
 import SignUpPage from 'containers/SignUpPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
@@ -55,7 +55,7 @@ export default function App() {
     <div>
       <Switch>
         <AppRoute exact path="/login" layout={PublicLayout} component={LoginPage} />
-        <AppRoute exact path="/" layout={AdminLayout} component={userIsAuthenticated(HomePage)} />
+        <AppRoute exact path="/" layout={PrivateLayout} component={userIsAuthenticated(HomePage)} />
         <AppRoute exact path="/signup" layout={PublicLayout} component={SignUpPage} />
         <Route exact path="/logout" component={LogoutPage} />
         <AppRoute path="" layout={PublicLayout} component={NotFoundPage} />

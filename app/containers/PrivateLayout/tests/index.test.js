@@ -1,16 +1,16 @@
 import React from 'react';
 import { mountWithIntl } from 'helpers/intl-enzyme-test-helper';
 
-import { AdminLayout } from '../index';
+import { PrivateLayout } from '../index';
 
-describe('<AdminLayout />', () => {
-  it('should render a Component inside `AdminLayout`', () => {
+describe('<PrivateLayout />', () => {
+  it('should render a Component inside `PrivateLayout`', () => {
     const wrapper = mountWithIntl(
-      <AdminLayout navs={[]}>
+      <PrivateLayout navs={[]}>
         <div className="child-component">
           Test
         </div>
-      </AdminLayout>
+      </PrivateLayout>
     );
     expect(wrapper.find('#component-wrapper').text()).toEqual('Test');
   });
