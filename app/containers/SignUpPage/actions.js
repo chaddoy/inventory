@@ -10,11 +10,10 @@ import {
   SIGNUP_USER_ERROR,
 } from './constants';
 
-export function signUpUser({ email, password }) {
+export function signUpUser(user) {
   return {
     type: SIGNUP_USER,
-    email,
-    password,
+    user,
   };
 }
 

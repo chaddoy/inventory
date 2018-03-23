@@ -44,7 +44,7 @@ export class SignUpPage extends React.PureComponent { // eslint-disable-line rea
           <Col xs={22} sm={22} md={22} lg={20} xl={12}>
             <Card
               title="Register"
-              style={{ margin: 'auto' }}
+              style={{ margin: 'auto', marginTop: '20px' }}
               bodyStyle={{ paddingBottom: '0px' }}
             >
               <SignUpForm

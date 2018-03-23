@@ -7,7 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form, Alert, Input, Col, Button, Icon } from 'antd';
+import { Form, Alert, Input, Col, Button, Icon, Divider } from 'antd';
 // import styled from 'styled-components';
 
 import { FORM_ITEM_LAYOUT, SUCCESS_MSG, SUCCESS_DESC } from './constants';
@@ -87,6 +87,50 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
     return (
       <Form onSubmit={this.handleSubmit} layout="horizontal">
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="First name"
+          hasFeedback
+        >
+          {getFieldDecorator('firstName', {
+            rules: [
+              { required: true, message: 'Please input your first name' },
+            ],
+          })(
+            <Input className="signupform-firstName" size="large" />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="Last name"
+          hasFeedback
+        >
+          {getFieldDecorator('lastName', {
+            rules: [
+              { required: true, message: 'Please input your last name' },
+            ],
+          })(
+            <Input className="signupform-lastName" size="large" />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="Phone number"
+          hasFeedback
+        >
+          {getFieldDecorator('phoneNumber', {
+            rules: [
+              { required: true, message: 'Please input your last name' },
+              { validator: this.validateToNextPassword },
+            ],
+          })(
+            <Input className="signupform-phoneNumber" size="large" />
+          )}
+        </FormItem>
+
+        <Divider orientation="right">Login credentials</Divider>
         <FormItem
           {...FORM_ITEM_LAYOUT}
           label="Email"
