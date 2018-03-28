@@ -7,12 +7,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form, Alert, Input, Col, Button, Icon, Divider } from 'antd';
+import { Form, Alert, Input, Col, Button, Icon, Divider, Radio } from 'antd';
 // import styled from 'styled-components';
 
 import { FORM_ITEM_LAYOUT, SUCCESS_MSG, SUCCESS_DESC } from './constants';
 
 const FormItem = Form.Item;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
 class SignUpForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = {
@@ -89,6 +91,20 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
       <Form onSubmit={this.handleSubmit} layout="horizontal">
         <FormItem
           {...FORM_ITEM_LAYOUT}
+          label="Username"
+          hasFeedback
+        >
+          {getFieldDecorator('username', {
+            rules: [
+              { required: true, message: 'Please input your first name' },
+            ],
+          })(
+            <Input className="signupform-username" size="large" />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
           label="First name"
           hasFeedback
         >
@@ -103,6 +119,16 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
 
         <FormItem
           {...FORM_ITEM_LAYOUT}
+          label="Middle name"
+          hasFeedback
+        >
+          {getFieldDecorator('middleName')(
+            <Input className="signupform-middleName" size="large" />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
           label="Last name"
           hasFeedback
         >
@@ -112,6 +138,36 @@ class SignUpForm extends React.Component { // eslint-disable-line react/prefer-s
             ],
           })(
             <Input className="signupform-lastName" size="large" />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="Radio.Button"
+        >
+          {getFieldDecorator('gender', {
+            rules: [
+              { required: true, message: 'Please input your gender' },
+            ],
+          })(
+            <RadioGroup size="large">
+              <RadioButton value="male">Male</RadioButton>
+              <RadioButton value="female">Female</RadioButton>
+            </RadioGroup>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...FORM_ITEM_LAYOUT}
+          label="Address"
+          hasFeedback
+        >
+          {getFieldDecorator('address', {
+            rules: [
+              { required: true, message: 'Please input your last name' },
+            ],
+          })(
+            <Input className="signupform-address" size="large" />
           )}
         </FormItem>
 

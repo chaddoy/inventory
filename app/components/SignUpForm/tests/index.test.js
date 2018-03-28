@@ -79,7 +79,14 @@ describe('<SignUpForm />', () => {
     const signUpSpy = jest.spyOn(props, 'signUp');
     const wrapper = mount(<SignUpForm {...props} />);
     wrapper.node.setFieldsValue({
-      email: 'email@email.com',
+      username: 'janedoe',
+      firstName: 'Jane',
+      middleName: 'Foo',
+      lastName: 'Doe',
+      address: 'matrix',
+      gender: 'male',
+      phoneNumber: '1234567890',
+      email: 'janedoe@email.com',
       password: 'myPassword',
       confirmPassword: 'myPassword',
     });

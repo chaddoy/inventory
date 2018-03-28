@@ -13,14 +13,12 @@ import {
 describe('SignUpPage actions', () => {
   describe('signUpUser', () => {
     it('has a type of SIGNUP_USER', () => {
-      const email = 'email@email.com';
-      const password = 'myPassword';
+      const user = {};
       const expected = {
         type: SIGNUP_USER,
-        email,
-        password,
+        user,
       };
-      expect(signUpUser({ email, password })).toEqual(expected);
+      expect(signUpUser(user)).toEqual(expected);
     });
   });
 

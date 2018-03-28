@@ -5,8 +5,7 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "email@email.com",
-      "myPassword",
+      "/users",
     ],
     "context": null,
     "fn": [Function],
@@ -19,8 +18,33 @@ Object {
   "@@redux-saga/IO": true,
   "CALL": Object {
     "args": Array [
-      "email@email.com",
-      "myPassword",
+      "/users",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`registerUser Saga should throw a message if email exists 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/users",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`registerUser Saga should throw a message if username exists 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "/users",
     ],
     "context": null,
     "fn": [Function],
